@@ -3,174 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | 个人作品集</title>
+    <title>Portfolio | 作品集</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-color: #1a1a1a;
-            --accent-color: #666666;
-            --gap: 2rem;
+            --bg: #ffffff;
+            --text: #121212;
+            --accent: #707070;
+            --light-gray: #f8f8f8;
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: "Inter", "PingFang SC", sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Inter', 'PingFang SC', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* 导航栏 */
+        /* --- 导航栏 --- */
         nav {
-            padding: 2rem 5%;
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 1.5rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
             background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(10px);
-            z-index: 100;
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
         }
 
-        .logo { font-weight: 700; font-size: 1.2rem; }
+        .logo { font-weight: 600; font-size: 1.1rem; letter-spacing: 1px; }
         .nav-links a {
             text-decoration: none;
-            color: var(--text-color);
-            margin-left: 2rem;
-            font-size: 0.9rem;
+            color: var(--text);
+            margin-left: 2.5rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
+            transition: var(--transition);
+        }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- 全局动画类 --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* 英雄页 - 简介 */
-        header {
-            padding: 10vh 5%;
-            max-width: 800px;
+        /* --- 英雄页 (首屏大作) --- */
+        .hero {
+            padding: 140px 5% 60px;
+            min-height: 80vh;
         }
 
-        header h1 {
-            font-size: 3rem;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
+        .hero-info { max-width: 800px; margin-bottom: 3rem; }
+        .hero-info h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; }
+        .hero-info p { font-size: 1.2rem; color: var(--accent); }
 
-        header p {
-            font-size: 1.2rem;
-            color: var(--accent-color);
-        }
-
-        /* 作品网格 */
-        .section-title {
-            padding: 0 5%;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--accent-color);
-            margin-top: 4rem;
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: var(--gap);
-            padding: 2rem 5%;
-        }
-
-        .project-card {
-            text-decoration: none;
-            color: inherit;
-            transition: opacity 0.3s;
-        }
-
-        .project-card:hover { opacity: 0.8; }
-
-        .image-placeholder {
-            background: #f4f4f4;
-            aspect-ratio: 16 / 9;
+        .featured-video {
             width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            color: #ccc;
+            aspect-ratio: 16 / 9;
+            background: var(--light-gray);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
         }
 
-        .project-info {
-            padding-top: 1rem;
-        }
-
-        .project-title {
-            font-weight: 600;
-            margin: 0;
+        /* --- 作品网格 --- */
+        section { padding: 80px 5%; }
+        .section-header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
             display: flex;
             justify-content: space-between;
+            align-items: flex-end;
+        }
+        .section-header h2 { font-size: 1.5rem; font-weight: 400; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 3rem;
         }
 
-        .project-category {
-            font-size: 0.8rem;
-            color: var(--accent-color);
+        .card { text-decoration: none; color: inherit; group; }
+        .card-img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background: var(--light-gray);
+            overflow: hidden;
+            margin-bottom: 1.2rem;
+            transition: var(--transition);
         }
+        .card:hover .card-img { transform: scale(0.98); opacity: 0.9; }
+        
+        .card-meta { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--accent); margin-bottom: 0.5rem; }
+        .card-title { font-size: 1.1rem; font-weight: 600; }
+
+        /* --- 关于 & 服务模块 --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+        .service-item { margin-bottom: 2rem; }
+        .service-item h3 { font-size: 1rem; margin-bottom: 0.5rem; text-transform: uppercase; }
 
         footer {
-            padding: 5rem 5% 2rem;
+            padding: 100px 5% 40px;
             text-align: center;
+            border-top: 1px solid #eee;
             font-size: 0.8rem;
-            color: var(--accent-color);
+            color: var(--accent);
         }
 
-        @media (max-width: 600px) {
-            header h1 { font-size: 2rem; }
-            .portfolio-grid { grid-template-columns: 1fr; }
+        /* 手机端适配 */
+        @media (max-width: 768px) {
+            .hero-info h1 { font-size: 2.2rem; }
+            .grid { grid-template-columns: 1fr; }
+            .about-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; } /* 手机端隐藏导航 */
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">NAME | 姓名</div>
+        <div class="logo">PORTFOLIO | 作品集</div>
         <div class="nav-links">
             <a href="#work">作品 | Work</a>
             <a href="#about">关于 | About</a>
+            <a href="mailto:your@email.com">联系 | Contact</a>
         </div>
     </nav>
 
-    <header>
-        <h1>致力于通过视觉语言简化复杂信息。</h1>
-        <p>专注于视频剪辑与教学内容设计。在动态影像中寻找叙事的逻辑，在静态插画中构建教育的直观。</p>
+    <header class="hero reveal">
+        <div class="hero-info">
+            <h1>用视觉重构信息。</h1>
+            <p>视频剪辑师 & 教育内容设计 | 基于逻辑与审美的叙事表达</p>
+        </div>
+        <div class="featured-video">
+            <iframe src="//player.bilibili.com/player.html?bvid=BV1xxxxxxx&page=1&high_quality=1" 
+                    style="width: 100%; height: 100%; border:none;" allowfullscreen="true">
+            </iframe>
+        </div>
     </header>
 
-    <div id="work" class="section-title">精选作品 | Selected Works</div>
-    
-    <main class="portfolio-grid">
-        <a href="#" class="project-card">
-            <div class="image-placeholder">Video Thumbnail (16:9)</div>
-            <div class="project-info">
-                <p class="project-title">商业宣传片 | Commercial IP <span>2026</span></p>
-                <span class="project-category">视频剪辑 / 调色</span>
-            </div>
-        </a>
+    <section id="work">
+        <div class="section-header reveal">
+            <h2>精选作品 | Selected Projects</h2>
+            <p style="color: var(--accent);">2024 — 2026</p>
+        </div>
+        
+        <div class="grid">
+            <a href="#" class="card reveal">
+                <div class="card-img">
+                    <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#ccc;">Commercial Vlog</div>
+                </div>
+                <div class="card-meta">
+                    <span>商业宣传 / Commercial</span>
+                    <span>2026</span>
+                </div>
+                <h3 class="card-title">某品牌年度形象短片</h3>
+            </a>
 
-        <a href="#" class="project-card">
-            <div class="image-placeholder">Micro-lesson Illustration</div>
-            <div class="project-info">
-                <p class="project-title">微课视觉系统 | Educational Visuals <span>2026</span></p>
-                <span class="project-category">视觉设计 / 物理教学</span>
-            </div>
-        </a>
+            <a href="#" class="card reveal">
+                <div class="card-img">
+                    <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#ccc;">Education Design</div>
+                </div>
+                <div class="card-meta">
+                    <span>微课设计 / Education</span>
+                    <span>2026</span>
+                </div>
+                <h3 class="card-title">物理力学系列课件视觉设计</h3>
+            </a>
+        </div>
+    </section>
 
-        <a href="#" class="project-card">
-            <div class="image-placeholder">Vlog Content</div>
-            <div class="project-info">
-                <p class="project-title">个人叙事 | Personal Vlog <span>2025</span></p>
-                <span class="project-category">视频剪辑 / 叙事设计</span>
+    <section id="about" style="background-color: var(--light-gray);">
+        <div class="about-grid">
+            <div class="reveal">
+                <h2 style="margin-bottom: 2rem;">服务范围 | Services</h2>
+                <div class="service-item">
+                    <h3>视频后期 | Post-Production</h3>
+                    <p>口播剪辑、商业 IP 孵化、Vlog 叙事设计。</p>
+                </div>
+                <div class="service-item">
+                    <h3>教学视觉 | Educational Visuals</h3>
+                    <p>PPT 课件美化、插画绘制、知识类微课动画。</p>
+                </div>
             </div>
-        </a>
-    </main>
+            <div class="reveal">
+                <h2 style="margin-bottom: 2rem;">关于我 | About</h2>
+                <p>我是一名热衷于通过技术手段提升信息传递效率的创作者。目前专注于将专业的视频剪辑思维引入教育领域，为学生提供更具吸引力的视觉学习材料。</p>
+                <br>
+                <p>擅长工具：Premiere, After Effects, Notion, Figma, Canva.</p>
+            </div>
+        </div>
+    </section>
 
     <footer>
-        <p>© 2026 Designed by You. Built with Passion.</p>
+        <p>© 2026 Built by [Your Name]. All Rights Reserved.</p>
     </footer>
 
+    <script>
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
