@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | 个人作品集</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --accent-color: #666666;
+            --gap: 2rem;
+        }
+
+        body {
+            font-family: "Inter", "PingFang SC", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* 导航栏 */
+        nav {
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .logo { font-weight: 700; font-size: 1.2rem; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* 英雄页 - 简介 */
+        header {
+            padding: 10vh 5%;
+            max-width: 800px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+
+        /* 作品网格 */
+        .section-title {
+            padding: 0 5%;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-color);
+            margin-top: 4rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--gap);
+            padding: 2rem 5%;
+        }
+
+        .project-card {
+            text-decoration: none;
+            color: inherit;
+            transition: opacity 0.3s;
+        }
+
+        .project-card:hover { opacity: 0.8; }
+
+        .image-placeholder {
+            background: #f4f4f4;
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        .project-info {
+            padding-top: 1rem;
+        }
+
+        .project-title {
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .project-category {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+        }
+
+        footer {
+            padding: 5rem 5% 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">NAME | 姓名</div>
+        <div class="nav-links">
+            <a href="#work">作品 | Work</a>
+            <a href="#about">关于 | About</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>致力于通过视觉语言简化复杂信息。</h1>
+        <p>专注于视频剪辑与教学内容设计。在动态影像中寻找叙事的逻辑，在静态插画中构建教育的直观。</p>
+    </header>
+
+    <div id="work" class="section-title">精选作品 | Selected Works</div>
+    
+    <main class="portfolio-grid">
+        <a href="#" class="project-card">
+            <div class="image-placeholder">Video Thumbnail (16:9)</div>
+            <div class="project-info">
+                <p class="project-title">商业宣传片 | Commercial IP <span>2026</span></p>
+                <span class="project-category">视频剪辑 / 调色</span>
+            </div>
+        </a>
+
+        <a href="#" class="project-card">
+            <div class="image-placeholder">Micro-lesson Illustration</div>
+            <div class="project-info">
+                <p class="project-title">微课视觉系统 | Educational Visuals <span>2026</span></p>
+                <span class="project-category">视觉设计 / 物理教学</span>
+            </div>
+        </a>
+
+        <a href="#" class="project-card">
+            <div class="image-placeholder">Vlog Content</div>
+            <div class="project-info">
+                <p class="project-title">个人叙事 | Personal Vlog <span>2025</span></p>
+                <span class="project-category">视频剪辑 / 叙事设计</span>
+            </div>
+        </a>
+    </main>
+
+    <footer>
+        <p>© 2026 Designed by You. Built with Passion.</p>
+    </footer>
+
+</body>
+</html>
